@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide Puzzle Jillちゃん</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div id="app">
+    <h1 class="title">Slide Puzzle Jillちゃん</h1>
+
+    <table id="board" aria-label="slide puzzle board">
+      <tbody>
+        <tr v-for="r in 4" :key="'r'+r">
+          <td v-for="c in 4" :key="'c'+c">
+            <button
+              type="button"
+              :class="tileClass(tiles[(r-1)*4 + (c-1)])"
+              :style="tileStyle(tiles[(r-1)*4 + (c-1)])"
+              @click="clickTile((r-1)*4 + (c-1))"
+              :aria-label="tiles[(r-1)*4 + (c-1)] && tiles[(r-1)*4 + (c-1)].value === 0 ? 'empty' : 'tile'"
+            >{{ tileText(tiles[(r-1)*4 + (c-1)]) }}</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="controls">
+      <div class="top-row">
+        <button id="shuffleBtn" type="button" @click="shuffle">Shuffle</button>
+        <span id="status">{{ status }}</span>
+      </div>
+
+      <div class="footer-info">
+        <p><strong>BGM：</strong> MusMus</p>
+      </div>
+    </div>
+
+
+    <audio id="bgm" src="BGM.mp3" preload="auto" loop></audio>
+    <audio id="exito" src="exito.mp3" preload="auto"></audio>
+  </div>
+
+  <script src="vue.global.js"></script>
+
+  <script src="main.js"></script>
+</body>
+</html>
